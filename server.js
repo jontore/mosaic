@@ -18,7 +18,19 @@ var svgTemplate = [
   '</svg>'
 ].join('');
 
-http.createServer(function (req, res) { 
+var returnFile = function(dir, pathname, contentType, res) {
+  var filename = dir + pathname;
+  var stats = fs.existsSync(filename) && fs.statSync(filename);
+  if (stats && stats.isFile()) {
+    res.writeHead(200, {'Content-Type' : contentType});
+    fs.createReadStream(filename).pipe(res);
+    return true;
+  }
+
+  return false;
+}
+
+http.createServer(function (req, res) {
   var pathname = url.parse(req.url).pathname;
   var m;
   if (pathname == '/') {
@@ -26,11 +38,11 @@ http.createServer(function (req, res) {
     fs.createReadStream(dir + '/mosaic.html').pipe(res);
     return;
   } else if (m = pathname.match(/^\/js\//)) {
-    var filename = dir + pathname;
-    var stats = fs.existsSync(filename) && fs.statSync(filename);
-    if (stats && stats.isFile()) {
-      res.writeHead(200, {'Content-Type' : 'application/javascript'});
-      fs.createReadStream(filename).pipe(res);
+    if (returnFile(dir, pathname, 'application/javascript', res)) {
+      return;
+    }
+  } else if (m = pathname.match(/^\/styles\//)) {
+    if (returnFile(dir, pathname, 'text/css', res)) {
       return;
     }
   } else if (m = pathname.match(/^\/color\/([0-9a-fA-F]{6})/)) {

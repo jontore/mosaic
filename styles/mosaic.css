@@ -1,0 +1,57 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  font-family: 'Helvetica Neue', Helvetica, arial;
+
+  background-color: #E2E2E2;
+}
+
+.o-upload-box {
+  display: block;
+  width: 200px;
+  height: 200px;
+
+  border-radius: 5px;
+
+  color: white;
+  background-color: #636FC7;
+
+  border-bottom: 4px solid #D6B142;
+  border-right: 4px solid #D6B142;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.o-upload-box:after {
+  content: ' Drag an image here';
+}
+
+.o-upload-box:hover {
+  cursor: copy;
+  background-color: #CCC;
+}
+
+.o-upload-box.o-upload-box__progress:after {
+  content: 'Uploading image ...'
+}
+
+.o-upload-box.o-upload-box__hide {
+  display: none;
+}
+
+.o-tile-container{}
+
+.o-tile-container .o-tile-container-row {
+  animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

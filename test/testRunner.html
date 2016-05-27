@@ -3,14 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>TestRunner</title>
-    <script type="text/javascript" src="./testrunner.js"></script>
-    <script type="text/javascript" src="./tileTest.js"></script>
     <script type="text/javascript" src="../js/tile.js"></script>
+    <script type="text/javascript" src="../js/row.js"></script>
+    <script type="text/javascript" src="../js/uploadImage.js"></script>
+
+    <script type="text/javascript" src="./testrunner.js"></script>
+    <script type="text/javascript" src="./rowTest.js"></script>
+    <script type="text/javascript" src="./tileTest.js"></script>
+    <script type="text/javascript" src="./uploadImageTest.js"></script>
   </head>
   <body>
 
     <script type="text/javascript">
-      TestRunner.run();
+      TestRunner.run().then(function() {
+        document.body.style = 'background: green';
+      }, function() {
+        document.body.style = 'background: red';
+      });
     </script>
   </body>
 </html>
